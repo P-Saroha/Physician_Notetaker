@@ -1,0 +1,6 @@
+torch
+transformers
+spacy
+scipy
+numpy
+tf-keras
