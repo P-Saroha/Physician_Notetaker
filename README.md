@@ -1,50 +1,25 @@
-# 🩺 Physician Notetaker: Medical NLP Pipeline
+# Physician Notetaker AI
 
-## 📖 Overview
-This project is an AI-driven NLP pipeline designed to process physician-patient dialogues. It automates the extraction of clinical information, analyzes patient sentiment and intent, and synthesizes structured SOAP (Subjective, Objective, Assessment, Plan) notes.
+## 📋 Overview
+This project is an NLP-based application designed to assist physicians by automating the documentation process. It processes patient-physician transcripts to extract key medical details, analyze patient sentiment, and generate structured clinical notes (SOAP format).
 
-This solution is implemented in Python using the Hugging Face `transformers` ecosystem, leveraging State-of-the-Art (SOTA) models fine-tuned for biomedical contexts.
+## ⚙️ Features
+1.  **Medical NER (Named Entity Recognition):**
+    * Uses the `d4data/biomedical-ner-all` model to identify symptoms and treatments.
+    * **Hybrid Approach:** Includes custom Regex (Regular Expression) logic to capture specific details (like patient names and prognosis) that models sometimes miss, ensuring higher accuracy.
+2.  **Sentiment & Intent Analysis:**
+    * Uses `distilbert` to classify whether a patient is Anxious or Reassured.
+    * Uses Zero-Shot Classification (`bart-large-mnli`) to detect specific intents like "Reporting symptoms" or "Seeking reassurance."
+3.  **Automated SOAP Note:**
+    * Summarizes the conversation using `bart-large-cnn` and maps the output into Subjective, Objective, Assessment, and Plan sections.
 
-## 🚀 Features & Deliverables
+## 🛠️ Tech Stack
+* **Language:** Python 3
+* **Libraries:** Hugging Face `transformers`, `torch`, `re` (Regex)
 
-### 1. Medical Named Entity Recognition (NER)
-* **Objective:** Extract structured clinical entities (Symptoms, Diagnosis, Treatments).
-* **Model:** `d4data/biomedical-ner-all` (RoBERTa-based).
-* **Output:** Structured JSON mapping of clinical entities.
+## 🚀 Setup & Execution
 
-### 2. Sentiment & Intent Analysis
-* **Objective:** Detect patient anxiety levels and classify communicative intent.
-* **Approach:**
-    * **Sentiment:** `distilbert-base-uncased-finetuned-sst-2-english`.
-    * **Intent:** Zero-Shot Classification using `facebook/bart-large-mnli` to detect dynamic intents (e.g., "Seeking reassurance", "Reporting symptoms") without labeled training data.
-
-### 3. Automated SOAP Note Generation
-* **Objective:** Convert raw dialogue into a clinical documentation format.
-* **Model:** `facebook/bart-large-cnn` (Summarization).
-* **Logic:** Segment-based summarization mapped to standard SOAP categories.
-
----
-
-## 🛠️ Architecture & Design Decisions
-
-### Why Specialized Models?
-Instead of using generic NLP models (like standard BERT), this pipeline prioritizes **Biomedical-Specific Transformers**:
-* **Domain Specificity:** Medical terminology ("whiplash," "physiotherapy") requires embeddings trained on PubMed/Clinical notes. Standard models often misclassify these as generic nouns.
-* **Zero-Shot Learning:** For Intent Analysis, I utilized Zero-Shot classification to ensure the system is extensible. New intents can be added to the taxonomy without retraining the model.
-
-### Handling Ambiguity
-* **Confidence Thresholds:** The pipeline is designed to filter entities with low confidence scores to prevent hallucinations in clinical data.
-* **Entity Grouping:** Post-processing logic groups sub-word tokens to ensure human-readable output (e.g., removing tokenizer artifacts like `##`).
-
----
-
-## 💻 Setup & Installation
-
-### Prerequisites
-* Python 3.8+
-* pip / conda
-
-### 1. Clone the Repository
+### 1. Install Dependencies
+Ensure you have Python installed, then install the required libraries:
 ```bash
-# Unzip the project folder
-cd Physician_Notetaker_Submission
+pip install -r requirements.txt

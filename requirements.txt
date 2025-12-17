@@ -1,6 +1,5 @@
 torch
 transformers
-spacy
-scipy
 numpy
+scipy
 tf-keras
