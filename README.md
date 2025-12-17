@@ -25,15 +25,5 @@ Ensure you have Python installed, then install the required libraries:
 pip install -r requirements.txt
 
 ### 2. Run the Application
-```bash
 python physician_notetaker.py
 
-
-3. Expected Output
-The script will output three JSON blocks to the console:
-
-Extraction Data: JSON containing Patient Name, Diagnosis, Symptoms, etc.
-
-Sentiment Analysis: JSON containing Sentiment Label and Confidence Score.
-
-SOAP Note: JSON containing the structured clinical note.
